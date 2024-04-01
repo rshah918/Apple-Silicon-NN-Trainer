@@ -1,5 +1,5 @@
 # Apple-Silicon-NN-Trainer
-Train Neural Networks natively on Apple Silicon! Take advantage of Apple Silicon's Unified Memory using for lightning fast neural net training! 
+Train Neural Networks natively on Apple Silicon! Take advantage of Apple Silicon's Unified Memory using for lightning fast neural net training! Scripts were written and open sourced by Apple MLX.
 
 ## Quick Start
 
