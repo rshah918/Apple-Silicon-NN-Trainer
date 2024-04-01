@@ -59,7 +59,7 @@ def main():
         train(args.model, args.iters, args.batch_size, args.lora_layers, args.resume_adapter_file)
     elif args.action == "convert":
         fuse_lora_layers(args.model)
-        convert_to_gguf(args.model, args.outtype)
+        convert_to_gguf(args.outtype)
     elif args.action == "start_server":
         start_llama_server(args.gguf_model_name, args.model_path)
     elif args.action == "get_base_model":
