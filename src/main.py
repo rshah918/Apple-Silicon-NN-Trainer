@@ -36,12 +36,14 @@ def train(model="mlx_model", iters=500, batch_size=1, lora_layers=4, resume_adap
 def fuse_lora_layers(model="mlx_model"):
     subprocess.run(["python3", "mlx_train/fuse.py", "--model", model, "--de-quantize"])
 
-def convert_to_gguf(model="mlx_model", outtype="q8_0"):
+def convert_to_gguf(outtype="q8_0"):
     subprocess.run(["python3", "mlx_train/convert.py", "../models/lora_fused_model", "--outtype", outtype])
 
+def get_base_model(huggingface_model):
+    subprocess.run(["python3", "get_base_model/convert.py", "--hf-path",huggingface_model,"--mlx-path", "../models/mlx_model/", "-q"])
 def main():
     parser = argparse.ArgumentParser(description="Script to abstract away training, fusing, conversion, and server functionality")
-    parser.add_argument("action", choices=["train", "convert", "start_server"], help="Action to perform: train, convert, or start_server")
+    parser.add_argument("action", choices=["train", "convert", "start_server", "get_base_model"], help="Action to perform: train, convert, get_base_model, or start_server")
     parser.add_argument("--model", default="mlx_model", help="Model name (default: mlx_model)")
     parser.add_argument("--iters", type=int, default=500, help="Number of iterations for training (default: 500)")
     parser.add_argument("--batch-size", type=int, default=1, help="Batch size for training (default: 1)")
@@ -50,6 +52,7 @@ def main():
     parser.add_argument("--gguf-model-name", default="ggml-model-q8_0.gguf", help="GGUF model name for starting server (default: ggml-model-q8_0.gguf)")
     parser.add_argument("--model-path", default="../models/lora_fused_model/", help="Path to model directory for server (default: ../models/lora_fused_model/)")
     parser.add_argument("--outtype", default="q8_0", help="Select quantization level (default: q8_0)")
+    parser.add_argument("--hf-path", default="mistralai/Mistral-7B-Instruct-v0.2", help="path to huggingface model (default: Mistral Instruct)")
     args = parser.parse_args()
 
     if args.action == "train":
@@ -59,6 +62,8 @@ def main():
         convert_to_gguf(args.model, args.outtype)
     elif args.action == "start_server":
         start_llama_server(args.gguf_model_name, args.model_path)
+    elif args.action == "get_base_model":
+        get_base_model(args.hf_path)
 
 if __name__ == "__main__":
     main()
