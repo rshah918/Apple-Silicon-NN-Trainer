@@ -7,14 +7,23 @@ Train Neural Networks natively on Apple Silicon! Take advantage of Apple Silicon
 
 `python3 -m venv venv ` 
 
-`source .venv/bin/activate `
+`source venv/bin/activate `
 
 1: Install dependencies: 
+
 `pip3 install sentencepiece`
+
 `pip3 install numpy`
+
 `pip3 install mlx`
 
-2: Download base model from Huggingface: mistralai/Mistral-7B-Instruct-v0.2 and store in `/models`
+`pip3 install huggingface_hub`
+
+`pip3 install transformers`
+
+
+
+2: Download base model from Huggingface: `python3 main.py get_base_model`
 
 3: Train Model! `python3 main.py train`
 
