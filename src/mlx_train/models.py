@@ -110,7 +110,7 @@ class LoRALinear(nn.Module):
         self.linear = nn.Linear(input_dims, output_dims, bias=bias)
 
         # Scale for low-rank update
-        self.scale = 200
+        self.scale = 250
 
         # Low rank lora weights
         scale = 1 / math.sqrt(input_dims)
