@@ -17,11 +17,11 @@ from huggingface_hub import snapshot_download
 from mlx.utils import tree_flatten
 from transformers import AutoConfig, AutoTokenizer, PreTrainedTokenizer
 
-from .sample_utils import top_p_sampling
+from sample_utils import top_p_sampling
 
 # Local imports
-from .tuner.utils import apply_lora_layers
-from .tuner.utils import dequantize as dequantize_model
+from tuner.utils import apply_lora_layers
+from tuner.utils import dequantize as dequantize_model
 
 # Constants
 MODEL_REMAPPING = {
